@@ -9,7 +9,12 @@ num: 10
 str: "qs"
 
 sites: 
- - aaa: 123
- - bbb: 234
- - ccc: 456
+  - aaa: 123
+  - bbb: 234
+  - ccc: 456
   
+pizzaToppings:
+  - mushrooms
+  - cheese
+  - peppers
+  - onions

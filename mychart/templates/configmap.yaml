@@ -7,6 +7,8 @@ data:
   {{- with .Values.favorite }}
   drink: {{ .drink | default "tea" | quote | upper }}
   food: {{ .food | upper | quote }}
+  # we can use dollar($) sign to assess parent scope object in scoped area
+  realease: {{ $.Release.Name}}
   {{- end }}
   {{- if eq .Values.favorite.food "pizza" }}
   mug: "true"
@@ -21,4 +23,8 @@ data:
   {{- end }}
   {{- if .Values.sites }}
 {{ indent 2  "sites: true"}}
-  {{- end }}
+  {{ end }}
+  toppings: |-
+    {{- range .Values.pizzaToppings }}
+    - {{ . | title | quote }}
+    {{- end }}
