@@ -4,11 +4,14 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   myvalue: "Hello World"
+  {{ $relname := .Release.Name}}
   {{- with .Values.favorite }}
   drink: {{ .drink | default "tea" | quote | upper }}
   food: {{ .food | upper | quote }}
   # we can use dollar($) sign to assess parent scope object in scoped area
   realease: {{ $.Release.Name}}
+  # we can assign parent scope object in a varible in use it in the scoped area.
+  releasename: {{ $relname }}
   {{- end }}
   {{- if eq .Values.favorite.food "pizza" }}
   mug: "true"
@@ -23,10 +26,15 @@ data:
   {{- end }}
   {{- if .Values.sites }}
 {{ indent 2  "sites: true"}}
-  {{ end }}
+  {{- end }}
   toppings: |-
     {{- range .Values.pizzaToppings }}
     - {{ . | title | quote }}
+    {{- end }}
+  # range over slice and reading in value
+  toppings_new: |-
+    {{- range $index, $topping := .Values.pizzaToppings }}
+    {{ $index }}: {{ $topping }}
     {{- end }}
   sizes: |-
     {{- range tuple "small" "medium" "large"}}
