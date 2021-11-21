@@ -1,11 +1,17 @@
+{{- define "mychart.labels" }}
+  labels:
+    generator: helm
+    date: {{ now | htmlDate }}
+{{- end }}
 apiVersion: v1
 kind: ConfigMap
 metadata: 
   name: {{ .Release.Name }}-configmap
+  {{- template "mychart.labels"}}
 data:
   myvalue: "Hello World"
   {{ $relname := .Release.Name}}
-  {{- with .Values.favorite }}
+  {{- with .Values.favorite -}}
   drinkk: {{ .drink | default "tea" | quote | upper }}
   foodd: {{ .food | upper | quote }}
   # we can use dollar($) sign to assess parent scope object in scoped area
