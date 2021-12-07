@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-files-configmap
 data:
   {{ $files := .Files }}
-  {{- range tuple "config1.toml" "config2.toml" "config3.toml" }}
+  {{- range tuple "foo/config1.toml" "foo/config2.toml" "foo/config3.toml" }}
   {{ . }}: |-
     {{ $files.Get . }}
   {{ end }}
