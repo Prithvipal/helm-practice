@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-files-configmap-glob
+data:
+  someval: |-
+  {{ range $path, $_ := .Files.Glob "**.toml" }}
+    {{ $.Files.Get $path  }}
+  {{ end }}
