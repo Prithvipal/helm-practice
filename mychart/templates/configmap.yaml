@@ -5,6 +5,7 @@ metadata:
   {{- template "mychart.labels" .}}
 data:
   myvalue: "Hello World"
+  salad: {{ .Values.global.salad }}
   {{ $relname := .Release.Name}}
   {{- with .Values.favorite -}}
   drinkk: {{ .drink | default "tea" | quote | upper }}
